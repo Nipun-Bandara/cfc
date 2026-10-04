@@ -1,6 +1,7 @@
 "use client";
 
 import BlurText from "../_components/BlurText";
+import Testimonials from "../_components/stories/Testimonials";
 
 const stories = [
   {
@@ -68,6 +69,7 @@ export default function StoriesClient() {
           </article>
         ))}
       </div>
+      <Testimonials />
       </div>
     </div>
   );
