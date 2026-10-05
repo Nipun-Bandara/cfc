@@ -20,17 +20,17 @@ export default function ServicesClient() {
           direction="top"
           className="py-2 font-header text-4xl font-bold"
         />
-        <p className="mb-8 max-w-3xl text-textPrimary/80">
+        <h1 className="text-textPrimary font-light mb-8">
           CFC helps you replace guesswork with a repeatable framework for
           navigating funded-account evaluations.
-        </p>
+        </h1>
         <Features />
       </div>
-      <p className="mt-10 text-sm text-textPrimary/60">
+      <h1 className="text-textPrimary font-light mb-8">
         CFC provides educational and process support. Trading involves risk,
         and no outcome or funded-account approval is guaranteed.
-      </p>
-      <div className="mt-20">
+      </h1>
+      <div className="mt-10">
       <AccountSteps/>
       </div>
     </div>

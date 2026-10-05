@@ -36,7 +36,7 @@ export default function Testimonials() {
   return (
     <section
       aria-labelledby="testimonials-heading"
-      className="mt-24 grid items-center gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-12 lg:gap-16"
+      className="grid items-center gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-12 lg:gap-16"
     >
       <div className="mb-4">
           <h2
@@ -67,10 +67,10 @@ export default function Testimonials() {
             direction="top"
             className="py-2 font-header text-4xl font-bold"
           />
-          <p className="mt-4 max-w-2xl text-textPrimary/70">
+          <h1 className="text-textPrimary font-light mb-8">
             Anonymous feedback themes from traders who value structure,
             accountability, and a more disciplined approach to evaluations.
-          </p>
+          </h1>
       </div>
       <div className="relative h-105 min-w-0 w-full overflow-hidden sm:h-125 md:mt-0">
         <CircularCarousel
