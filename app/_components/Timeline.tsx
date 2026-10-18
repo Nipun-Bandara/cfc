@@ -1,4 +1,6 @@
 "use client";
+
+import { useLanguage } from "@/app/_components/LanguageProvider";
 import {
   useMotionValueEvent,
   useScroll,
@@ -14,16 +16,21 @@ interface TimelineEntry {
 }
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+  const { t, locale } = useLanguage();
+
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
-    if (ref.current) {
-      const rect = ref.current.getBoundingClientRect();
-      setHeight(rect.height);
-    }
-  }, [ref]);
+    const element = ref.current;
+    if (!element) return;
+    const updateHeight = () => setHeight(element.getBoundingClientRect().height);
+    updateHeight();
+    const observer = new ResizeObserver(updateHeight);
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -53,11 +60,9 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               aria-hidden="true"
             >
               <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
-            </svg>
-            Changelog from my journey
-          </h1>
-          <BlurText
-            text="Let's start a the journey together."
+            </svg>{t("Changelog from my journey")}</h1>
+          <BlurText key={locale}
+            text={t("Let's start a the journey together.")}
             delay={150}
             animateBy="words"
             direction="top"

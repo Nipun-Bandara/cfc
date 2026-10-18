@@ -1,10 +1,14 @@
 "use client";
 
+import { useLanguage } from "@/app/_components/LanguageProvider";
+
 import { motion } from "motion/react";
 
 export const TextLoop = () => {
+  const { t } = useLanguage();
+
   const text =
-    "Forex Trading ✦ Crypto Trading ✦ Funded Account Trading ✦ ";
+    t("Forex Trading ✦ Crypto Trading ✦ Funded Account Trading ✦ ");
 
   const OneBlock = () => (
     <>

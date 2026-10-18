@@ -1,3 +1,7 @@
+"use client";
+
+import { useLanguage } from "@/app/_components/LanguageProvider";
+
 import { cn } from "@/lib/utils";
 import {
   ChartNoAxesCombined,
@@ -6,34 +10,34 @@ import {
   Route,
 } from "lucide-react";
 
-const features = [
-  {
-    title: "Firm Rule Review",
-    description:
-      "Understand profit targets, drawdown limits, trading days, and other conditions before starting.",
-    icon: ClipboardCheck,
-  },
-  {
-    title: "Challenge Planning",
-    description:
-      "Set out a practical approach based on your account stage and the support available.",
-    icon: Route,
-  },
-  {
-    title: "Risk Limit Awareness",
-    description:
-      "Keep the firm's loss limits and restrictions visible throughout the evaluation.",
-    icon: ChartNoAxesCombined,
-  },
-  {
-    title: "Progress Communication",
-    description:
-      "Know the current milestone, any issue that needs attention, and the proposed next step.",
-    icon: MessagesSquare,
-  },
-];
-
 export default function Features() {
+  const { t } = useLanguage();
+  const features = [
+    {
+      title: t("Firm Rule Review"),
+      description:
+        t("Understand profit targets, drawdown limits, trading days, and other conditions before starting."),
+      icon: ClipboardCheck,
+    },
+    {
+      title: t("Challenge Planning"),
+      description:
+        t("Set out a practical approach based on your account stage and the support available."),
+      icon: Route,
+    },
+    {
+      title: t("Risk Limit Awareness"),
+      description:
+        t("Keep the firm's loss limits and restrictions visible throughout the evaluation."),
+      icon: ChartNoAxesCombined,
+    },
+    {
+      title: t("Progress Communication"),
+      description:
+        t("Know the current milestone, any issue that needs attention, and the proposed next step."),
+      icon: MessagesSquare,
+    },
+  ];
   return (
     <div className="grid w-full grid-cols-1 overflow-hidden rounded-3xl border border-borderPrimary bg-backgroundSecondary min-[450px]:grid-cols-2 md:grid-cols-4">
       {features.map((feature) => (

@@ -1,30 +1,32 @@
 "use client";
 
+import { useLanguage } from "@/app/_components/LanguageProvider";
+
 import BlurText from "../_components/BlurText";
 import Testimonials from "../_components/stories/Testimonials";
 
-const stories = [
-  {
-    label: "Preparation",
-    title: "Start with the rules, not the target",
-    description:
-      "A clear review of the firm's drawdown, consistency, and trading restrictions gives every decision a useful context.",
-  },
-  {
-    label: "Execution",
-    title: "Protect the account through the phase",
-    description:
-      "A defined risk plan helps reduce emotional decisions and keeps a difficult trading day from becoming a failed evaluation.",
-  },
-  {
-    label: "Review",
-    title: "Build a process you can repeat",
-    description:
-      "Regular reviews turn individual trades into lessons that can improve the next session and the next challenge.",
-  },
-];
-
 export default function StoriesClient() {
+  const { t, locale } = useLanguage();
+  const stories = [
+    {
+      label: t("Preparation"),
+      title: t("Start with the rules, not the target"),
+      description:
+        t("A clear review of the firm's drawdown, consistency, and trading restrictions gives every decision a useful context."),
+    },
+    {
+      label: t("Execution"),
+      title: t("Protect the account through the phase"),
+      description:
+        t("A defined risk plan helps reduce emotional decisions and keeps a difficult trading day from becoming a failed evaluation."),
+    },
+    {
+      label: t("Review"),
+      title: t("Build a process you can repeat"),
+      description:
+        t("Regular reviews turn individual trades into lessons that can improve the next session and the next challenge."),
+    },
+  ];
   return (
     <div>
       <div className="pb-4 pt-32 sm:pt-32 px-4 sm:px-6 md:px-12 lg:px-12 w-full max-w-7xl mx-auto">
@@ -43,11 +45,9 @@ export default function StoriesClient() {
               aria-hidden="true"
             >
               <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
-            </svg>
-            Our approach
-          </h1>
-          <BlurText
-            text="Progress is built one disciplined decision at a time."
+            </svg>{t("Our approach")}</h1>
+          <BlurText key={locale}
+            text={t("Progress is built one disciplined decision at a time.")}
             delay={150}
             animateBy="words"
             direction="top"

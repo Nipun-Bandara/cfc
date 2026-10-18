@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/app/_components/LanguageProvider";
+
 import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -12,6 +14,8 @@ import { TextLoop } from "../TextLoop";
 import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const { t, locale } = useLanguage();
+
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
 
@@ -54,13 +58,13 @@ export default function Hero() {
                 <path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path>
               </svg>
             </motion.span>
-            <SplitText
-              text="Welcome to CFC"
+            <SplitText key={locale}
+              text={t("Welcome to CFC")}
               className="text-[clamp(2rem,4vw,3rem)] font-header text-textPrimary font-small leading-tight tracking-tight text-left"
               delay={50}
               duration={0.8}
               ease="power3.out"
-              splitType="chars"
+              splitType={locale === "si" ? "words" : "chars"}
               from={{ opacity: 0, y: 50, scale: 0.8 }}
               to={{ opacity: 1, y: 0, scale: 1 }}
               threshold={0.3}
@@ -85,23 +89,22 @@ export default function Hero() {
                 }}
                 className="text-5xl lg:text-6xl leading-snug lg:leading-tight text-left max-w-4xl"
               >
-                A Clearer Path Through{" "}
-                <Highlight className="text-textPrimary">
-                  Your Prop Firm 
-                </Highlight>
-                {""} that{" "}
-                <Highlight className="text-textPrimary">
-                  Challenge
-                </Highlight>
+                {locale === "si" ? (
+                  <>ඔබේ <Highlight className="text-textPrimary">ප්‍රොප් ෆර්ම් අභියෝගයට</Highlight> පැහැදිලි මඟක්</>
+                ) : (
+                  <>
+                    A Clearer Path Through{" "}
+                    <Highlight className="text-textPrimary">Your Prop Firm</Highlight>{" "}
+                    that{" "}<Highlight className="text-textPrimary">Challenge</Highlight>
+                  </>
+                )}
               </motion.h1>
             </HeroHighlight>
 
             <div className="flex flex-col sm:flex-row w-full items-center mt-4 sm:mt-0 md:mt-8 lg:mt-10 gap-4 sm:gap-0">
               <div className="w-full sm:w-1/2 h-[1.5px] bg-borderPrimary mb-2 sm:mb-0"></div>
               <div className="w-full sm:w-1/2 flex justify-start pl-0 sm:pl-4">
-                <span className="text-lg sm:text-sm font-mono text-textPrimary whitespace-normal">
-                  Practical support for traders working through prop firm evaluations. We start with your firm's rules, your current stage, and a clear plan for what happens next.
-                </span>
+                <span className="text-lg sm:text-sm font-mono text-textPrimary whitespace-normal">{t("Practical support for traders working through prop firm evaluations. We start with your firm's rules, your current stage, and a clear plan for what happens next.")}</span>
               </div>
             </div>
 

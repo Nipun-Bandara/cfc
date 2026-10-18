@@ -1,5 +1,7 @@
 'use client';
 
+import { useLanguage } from './LanguageProvider';
+
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 export interface CircularCarouselItem {
@@ -352,6 +354,7 @@ const CircularCarousel = ({
   className = '',
   style
 }: CircularCarouselProps) => {
+  const { t } = useLanguage();
   const list = items && items.length ? items : DEFAULT_ITEMS;
   const count = list.length;
   const shape: CircularCarouselPreset = PRESETS[preset] ? preset : 'cylinder';
@@ -1017,7 +1020,7 @@ const CircularCarousel = ({
       }
       role="region"
       aria-roledescription="carousel"
-      aria-label="Image carousel"
+      aria-label={t("Image carousel")}
       tabIndex={0}
       data-axis={axis}
       data-shape={shape}
@@ -1053,7 +1056,7 @@ const CircularCarousel = ({
                   data-cc-index={index}
                   role="group"
                   aria-roledescription="slide"
-                  aria-label={`${item.title || item.alt || `Image ${index + 1}`}, ${index + 1} of ${count}`}
+                  aria-label={`${item.title || item.alt || `${t("Image")} ${index + 1}`}, ${index + 1} ${t("of")} ${count}`}
                 >
                   {tiles.map(tile => renderTile(item, tile, false))}
                   {layout.backfaces && tiles.map(tile => renderTile(item, tile, true))}

@@ -269,3 +269,17 @@ html:not(.light) body::before {
     stroke-dashoffset: 275;
   }
 }
+
+/* Sinhala needs room for vowel marks and a font with complete glyph coverage. */
+:lang(si) {
+  font-family: var(--font-sinhala), sans-serif;
+  letter-spacing: normal;
+}
+html:lang(si) .font-header,
+html:lang(si) .font-mono {
+  font-family: var(--font-sinhala), sans-serif;
+}
+html:lang(si) .leading-tight,
+html:lang(si) .leading-snug {
+  line-height: 1.6;
+}

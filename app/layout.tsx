@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, DM_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, DM_Mono, Noto_Sans_Sinhala } from "next/font/google";
 import "./globals.css";
+import LanguageProvider from "./_components/LanguageProvider";
 import ThemeProvider from "./_components/ThemeProvider";
 import ClientLoader from "./_components/ClientLoader";
 import { Navigation } from "./_components/Navigation";
 import Footer from "./_components/Footer";
 import { ScrollProgressBar } from "./_components/ScrollProgressBar";
+
+const sinhala = Noto_Sans_Sinhala({
+  subsets: ["sinhala"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-sinhala",
+  display: "swap",
+});
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -77,7 +85,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${dmMono.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${spaceGrotesk.variable} ${inter.variable} ${dmMono.variable} ${sinhala.variable}`}>
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
@@ -85,12 +93,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <LanguageProvider>
           <ClientLoader>
             <ScrollProgressBar />
             <Navigation />
             {children}
             <Footer />
           </ClientLoader>
+          </LanguageProvider>
         </ThemeProvider>
       </body>
     </html>

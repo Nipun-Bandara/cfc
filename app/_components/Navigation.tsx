@@ -1,5 +1,8 @@
 "use client";
 
+import { useLanguage } from "@/app/_components/LanguageProvider";
+
+import LanguageSelect from "./LanguageSelect";
 import { useState, useEffect } from "react";
 import { motion, useScroll, useMotionValueEvent } from "motion/react";
 import { useTheme } from "next-themes";
@@ -13,6 +16,8 @@ const navItems = [
 ];
 
 export const Navigation = () => {
+  const { t } = useLanguage();
+
   const [isScrolled, setIsScrolled] = useState(false);
   const { scrollY } = useScroll();
   const { setTheme, resolvedTheme } = useTheme();
@@ -74,7 +79,7 @@ export const Navigation = () => {
             duration: 0.5,
             ease: "easeInOut",
           }}
-          className="relative max-screen bg-solid sm:backdrop-blur-md  pointer-events-auto flex w-full items-center justify-between gap-6 rounded-full px-4 py-1 transition-colors sm:px-6 sm:pr-4"
+          className="relative max-w-[95vw] bg-solid sm:backdrop-blur-md  pointer-events-auto flex w-full items-center justify-between gap-3 rounded-full px-4 py-1 transition-colors sm:px-6 sm:pr-4"
         >
 
           <a
@@ -83,12 +88,12 @@ export const Navigation = () => {
           >
             CFC
           </a>
-          <ul className="hidden font-light gap-6 text-sm sm:flex whitespace-nowrap px-16">
+          <ul className="hidden font-light gap-6 text-sm sm:flex whitespace-nowrap px-3">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
               return (
                 <li
-                  key={item.name}
+                  key={item.href}
                   className="group relative flex items-center"
                 >
                   {isActive && (
@@ -105,10 +110,10 @@ export const Navigation = () => {
                   >
                     <span className="relative inline-flex overflow-hidden">
                       <div className="translate-y-0 skew-y-0 transform-gpu transition-transform duration-500 group-hover:-translate-y-[110%] group-hover:skew-y-12">
-                        {item.name}
+                        {t(item.name)}
                       </div>
                       <div className="absolute translate-y-[110%] skew-y-12 transform-gpu transition-transform duration-500 group-hover:translate-y-0 group-hover:skew-y-0">
-                        {item.name}
+                        {t(item.name)}
                       </div>
                     </span>
                   </a>
@@ -116,7 +121,8 @@ export const Navigation = () => {
               );
             })}
           </ul>
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex shrink-0 items-center justify-center gap-2">
+            <LanguageSelect />
             <button
               onClick={(e) => {
                 const newTheme = resolvedTheme === "dark" ? "light" : "dark";
@@ -214,7 +220,7 @@ export const Navigation = () => {
                   <path d="m19.07 4.93-1.41 1.41"></path>
                 </svg>
               </div>
-              <span className="sr-only">Toggle theme</span>
+              <span className="sr-only">{t("Toggle theme")}</span>
             </button>
           </div>
         </motion.nav>
@@ -225,7 +231,7 @@ export const Navigation = () => {
           {navItems.map((item) => {
             const isActive = pathname === item.href;
             return (
-              <li key={item.name} className="p-4">
+              <li key={item.href} className="px-2 py-4">
                 <a
                   className={`flex flex-col items-center justify-center gap-1 ${isActive ? "text-primary" : "text-textPrimary"
                     }`}
@@ -346,7 +352,7 @@ export const Navigation = () => {
                       <path d="m21.854 2.147-10.94 10.939"></path>
                     </svg>
                   )}
-                  <span className="text-xs">{item.name}</span>
+                  <span className="text-xs">{t(item.name)}</span>
                 </a>
               </li>
             );

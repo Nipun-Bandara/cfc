@@ -1,38 +1,40 @@
 "use client";
 
+import { useLanguage } from "@/app/_components/LanguageProvider";
+
 import BlurText from "../BlurText";
 import CircularCarousel, {
   CircularCarouselItem,
 } from "../CircularCarousel";
 
-const testimonials: CircularCarouselItem[] = [
-  {
-    src: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80&auto=format&fit=crop",
-    alt: "Anonymous trader testimonial",
-    title: "Evaluation client",
-    subtitle: "Clearer rules and a calmer process",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80&auto=format&fit=crop",
-    alt: "Anonymous trader testimonial",
-    title: "Evaluation client",
-    subtitle: "Better risk awareness and consistency",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&q=80&auto=format&fit=crop",
-    alt: "Anonymous trader testimonial",
-    title: "Evaluation client",
-    subtitle: "A plan that was easier to follow",
-  },
-  {
-    src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&q=80&auto=format&fit=crop",
-    alt: "Anonymous trader testimonial",
-    title: "Evaluation client",
-    subtitle: "More confidence through each phase",
-  },
-];
-
 export default function Testimonials() {
+  const { t, locale } = useLanguage();
+  const testimonials: CircularCarouselItem[] = [
+    {
+      src: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=900&q=80&auto=format&fit=crop",
+      alt: t("Anonymous trader testimonial"),
+      title: t("Evaluation client"),
+      subtitle: t("Clearer rules and a calmer process"),
+    },
+    {
+      src: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&q=80&auto=format&fit=crop",
+      alt: t("Anonymous trader testimonial"),
+      title: t("Evaluation client"),
+      subtitle: t("Better risk awareness and consistency"),
+    },
+    {
+      src: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&q=80&auto=format&fit=crop",
+      alt: t("Anonymous trader testimonial"),
+      title: t("Evaluation client"),
+      subtitle: t("A plan that was easier to follow"),
+    },
+    {
+      src: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&q=80&auto=format&fit=crop",
+      alt: t("Anonymous trader testimonial"),
+      title: t("Evaluation client"),
+      subtitle: t("More confidence through each phase"),
+    },
+  ];
   return (
     <section
       aria-labelledby="testimonials-heading"
@@ -57,20 +59,15 @@ export default function Testimonials() {
               aria-hidden="true"
             >
               <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
-            </svg>
-            Client Feedback
-          </h2>
-          <BlurText
-            text="Support that makes the process clearer"
+            </svg>{t("Client Feedback")}</h2>
+          <BlurText key={locale}
+            text={t("Support that makes the process clearer")}
             delay={150}
             animateBy="words"
             direction="top"
             className="py-2 font-header text-4xl font-bold"
           />
-          <h1 className="text-textPrimary font-light mb-8">
-            Anonymous feedback themes from traders who value structure,
-            accountability, and a more disciplined approach to evaluations.
-          </h1>
+          <h1 className="text-textPrimary font-light mb-8">{t("Anonymous feedback themes from traders who value structure, accountability, and a more disciplined approach to evaluations.")}</h1>
       </div>
       <div className="relative h-105 min-w-0 w-full overflow-hidden sm:h-125 md:mt-0">
         <CircularCarousel

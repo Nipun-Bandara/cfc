@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/app/_components/LanguageProvider";
+
 import * as React from "react";
 import dynamic from "next/dynamic";
 
@@ -27,51 +29,6 @@ import {
 import BlurText from "../_components/BlurText";
 import { Button } from "../_components/Button";
 
-const questions = [
-  {
-    value: "job",
-    title: "1. Is CFC right for my challenge?",
-    content:
-      "CFC is for forex traders who want a structured process for navigating a prop firm evaluation and improving their decision-making.",
-  },
-  {
-    value: "specialization",
-    title: "2. What does the support include?",
-    content:
-      "We focus on rule review, challenge planning, risk management, journaling, and practical performance reviews.",
-  },
-  {
-    value: "projects",
-    title: "3. Do you guarantee a pass?",
-    content:
-      "No. Trading involves risk, and no service can guarantee a pass or a funded account. CFC provides education, structure, and accountability.",
-  },
-  {
-    value: "technologies",
-    title: "4. What should I share before we start?",
-    content:
-      "Share your prop firm's rules, your current phase, your trading hours, and the areas where you feel least consistent.",
-  },
-  {
-    value: "work",
-    title: "5. Can you help with risk management?",
-    content:
-      "Yes. Risk planning is central to the process, including daily loss limits, position sizing, and exposure controls.",
-  },
-  {
-    value: "improvements",
-    title: "6. How do I get started?",
-    content:
-      "Send a message with your current challenge stage and goals. We will use that context to outline the most useful next step.",
-  },
-  {
-    value: "goals",
-    title: "7. Is this financial advice?",
-    content:
-      "No. CFC provides educational and process support, not financial advice or a promise of trading results.",
-  },
-];
-
 const World = dynamic(
   () => import("../_components/Globe").then((m) => m.World),
   {
@@ -80,6 +37,51 @@ const World = dynamic(
 );
 
 export default function Contact() {
+  const { t, locale } = useLanguage();
+  const questions = [
+    {
+      value: "job",
+      title: t("1. Is CFC right for my challenge?"),
+      content:
+        t("CFC is for forex traders who want a structured process for navigating a prop firm evaluation and improving their decision-making."),
+    },
+    {
+      value: "specialization",
+      title: t("2. What does the support include?"),
+      content:
+        t("We focus on rule review, challenge planning, risk management, journaling, and practical performance reviews."),
+    },
+    {
+      value: "projects",
+      title: t("3. Do you guarantee a pass?"),
+      content:
+        t("No. Trading involves risk, and no service can guarantee a pass or a funded account. CFC provides education, structure, and accountability."),
+    },
+    {
+      value: "technologies",
+      title: t("4. What should I share before we start?"),
+      content:
+        t("Share your prop firm's rules, your current phase, your trading hours, and the areas where you feel least consistent."),
+    },
+    {
+      value: "work",
+      title: t("5. Can you help with risk management?"),
+      content:
+        t("Yes. Risk planning is central to the process, including daily loss limits, position sizing, and exposure controls."),
+    },
+    {
+      value: "improvements",
+      title: t("6. How do I get started?"),
+      content:
+        t("Send a message with your current challenge stage and goals. We will use that context to outline the most useful next step."),
+    },
+    {
+      value: "goals",
+      title: t("7. Is this financial advice?"),
+      content:
+        t("No. CFC provides educational and process support, not financial advice or a promise of trading results."),
+    },
+  ];
   const { resolvedTheme } = useTheme();
   const validationSchema = Yup.object({
     fullName: Yup.string().required("Full Name is required"),
@@ -105,7 +107,7 @@ export default function Contact() {
 
       if (!serviceId || !templateId || !publicKey) {
         console.error("EmailJS environment variables are missing.");
-        toast.error("Configuration error. Please check environment variables.");
+        toast.error(t("Configuration error. Please check environment variables."));
         setSubmitting(false);
         return;
       }
@@ -123,12 +125,12 @@ export default function Contact() {
         )
         .then(
           () => {
-            toast.success("Message sent successfully!");
+            toast.success(t("Message sent successfully!"));
             resetForm();
           },
           (error) => {
             console.error("FAILED...", error.text);
-            toast.error("Failed to send message. Please try again.");
+            toast.error(t("Failed to send message. Please try again."));
           }
         )
         .finally(() => {
@@ -187,11 +189,9 @@ export default function Contact() {
               aria-hidden="true"
             >
               <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
-            </svg>
-            Contact Me
-          </h1>
-          <BlurText
-            text="Let's start a working together"
+            </svg>{t("Contact Me")}</h1>
+          <BlurText key={locale}
+            text={t("Let's start a working together")}
             delay={150}
             animateBy="words"
             direction="top"
@@ -203,11 +203,11 @@ export default function Contact() {
             <form className="my-8" onSubmit={formik.handleSubmit}>
               <div className="mb-4 flex flex-col space-y-8 md:space-y-4 md:space-x-2">
                 <div className="flex w-full flex-col space-y-4">
-                  <Label htmlFor="fullName">Full Name</Label>
+                  <Label htmlFor="fullName">{t("Full Name")}</Label>
                   <Input
                     id="fullName"
                     name="fullName"
-                    placeholder="Enter your name"
+                    placeholder={t("Enter your name")}
                     type="text"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -215,12 +215,12 @@ export default function Contact() {
                   />
                   {formik.touched.fullName && formik.errors.fullName ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.fullName}
+                      {t(formik.errors.fullName)}
                     </div>
                   ) : null}
                 </div>
                 <div className="flex w-full flex-col space-y-4">
-                  <Label htmlFor="email">Email Address</Label>
+                  <Label htmlFor="email">{t("Email Address")}</Label>
                   <Input
                     id="email"
                     name="email"
@@ -232,17 +232,17 @@ export default function Contact() {
                   />
                   {formik.touched.email && formik.errors.email ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.email}
+                      {t(formik.errors.email)}
                     </div>
                   ) : null}
                 </div>
 
                 <div className="flex w-full flex-col space-y-4">
-                  <Label htmlFor="message">Message</Label>
+                  <Label htmlFor="message">{t("Message")}</Label>
                   <TextArea
                     id="message"
                     name="message"
-                    placeholder="Tell us about your project..."
+                    placeholder={t("Tell us about your project...")}
                     className="h-32"
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -250,14 +250,14 @@ export default function Contact() {
                   />
                   {formik.touched.message && formik.errors.message ? (
                     <div className="text-red-500 text-xs">
-                      {formik.errors.message}
+                      {t(formik.errors.message)}
                     </div>
                   ) : null}
                 </div>
               </div>
 
               <div className="flex justify-center w-full mt-8 sm:mt-4">
-                <Button type="submit">Submit</Button>
+                <Button type="submit">{t("Submit")}</Button>
               </div>
             </form>
           </div>
@@ -282,11 +282,9 @@ export default function Contact() {
                 aria-hidden="true"
               >
                 <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.581a.5.5 0 0 1 0 .964L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"></path>
-              </svg>
-              FAQ s
-            </h1>
-            <BlurText
-              text="Have Questions"
+              </svg>{t("FAQ s")}</h1>
+            <BlurText key={locale}
+              text={t("Have Questions")}
               delay={150}
               animateBy="words"
               direction="top"
